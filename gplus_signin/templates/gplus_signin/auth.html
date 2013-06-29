@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+
+{% block content %}
+
+<p>Access Code: {{access_code|default:"No Access Code"}}</p>
+<p>Access Token: {{access_token|default:"No Access Token"}}</p>
+<p>Result: {{result}}</p>
+<p>Token Info: {{tokeninfo}}</p>
+
+<p>User Name: {{username|default:"No User Name"}}</p>
+<p>Email: {{email|default:"No Email"}}</p>
+<p>Full Name: {{ fullname|default:"No Full Name" }}</p>
+
+{% endblock %}
+

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load url from future %}
+
+
+{% block content %}
+
+<div>
+	<span id="signinButton"> <span
+		class="g-signin"
+		data-callback="signinCallback"
+		data-clientid="631472530712.apps.googleusercontent.com"
+		data-cookiepolicy="single_host_origin"
+		data-requestvisibleactions="http://schemas.google.com/AddActivity"
+		data-scope="https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/userinfo.email"> </span> </span>
+</div>
+
+<form id="access_form" method="POST" action="{% url 'gplus_auth' %}">
+	{% csrf_token %}
+	<input type="text" id="id_access_code" name="access_code">
+	
+	<input type="submit" value="Submit" />
+	
+</form>
+
+{% endblock %}
+
+{% block extrascript %}
+
+<script type="text/javascript">
+
+	function signinCallback(authResult) {
+		if (authResult['access_token']) {
+			// Successfully authorized
+			// Hide the sign-in button now that the user is authorized, for example:
+			document.getElementById('signinButton').setAttribute('style', 'display: none');
+			
+			$('#id_access_code').val(authResult['code']);
+			$('#access_form').submit();
+			
+		} else if (authResult['error']) {
+			// There was an error.
+			// Possible error codes:
+			//   "access_denied" - User denied access to your app
+			//   "immediate_failed" - Could not automatically log in the user
+			console.log('There was an error: ' + authResult['error']);
+		}
+	}
+
+
+     (function() {
+       var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+       po.src = 'https://apis.google.com/js/client:plusone.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+     })();
+</script>
+
+{% endblock %}
