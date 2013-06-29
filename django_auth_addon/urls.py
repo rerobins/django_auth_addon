@@ -18,7 +18,7 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import url, patterns
 
-from gplus_signin.views import ErrorView, LoginView, AuthView
+from django_auth_addon.views import ErrorView, LoginView, AuthView
 
 urlpatterns = patterns('',
     url(r'^$', LoginView.as_view(),
